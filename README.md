@@ -3,6 +3,6 @@ GetWithTheTimes
 
 Geographic visualization of comments on New York Times articles.
 
-Testing. 
+Query the New York Times community API for locations of commenters. 
 
-Interface edit test?
+Display results using mbostock's https://gist.github.com/4408297.git
