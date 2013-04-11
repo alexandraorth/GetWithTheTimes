@@ -12,22 +12,28 @@ def searching(string):
    
     f.close()
 
-    coordinates = []
+    coordinates = "["
 
     i = 0
 
     for comments in jsonResponse['results']['comments']:
-  
-        locationCoor = []
 
         address = comments['location']
         response = urlopen('https://maps.googleapis.com/maps/api/geocode/json?address=' + address + "&sensor=true")
         jsonLocations = json.load(response)
         
         if jsonLocations['status'] == 'OK':
-            locationCoor.append(jsonLocations['results'][0]['geometry']['location']["lat"])
-            locationCoor.append(jsonLocations['results'][0]['geometry']['location']["lng"])
-            coordinates.append(locationCoor)
+            locationCoor = ""
+
+            locationCoor += "[" + str(jsonLocations['results'][0]['geometry']['location']["lat"]) + ","
+            locationCoor += str(jsonLocations['results'][0]['geometry']['location']["lng"]) + "]"
+            coordinates += locationCoor
             i = i + 1
+
+    coordinates += "]"
+
+    JSON = "{'type':'Locations','transform':{'scale':[0.032229964456445645,0.006392461796179619],'translate':[-176.6460306,7.367222]},'objects':{'coords':{'type':'MultiPoint','coordinates':"+coordinates+"}},'arcs'[]}"
+
+    print JSON
     
-    return coordinates
+    return JSON
