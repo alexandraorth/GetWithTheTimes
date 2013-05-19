@@ -1,4 +1,7 @@
 GetWithTheTimes
+
+Alexandra Orth, Cecilia Reyes
+
 ===============
 
 Geographic visualization of comments on New York Times articles.
