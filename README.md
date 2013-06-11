@@ -1,4 +1,4 @@
-GetWithTheTimes
+GetWithTheTimes HACKNY 2013 Spring hack.
 ===============
 
 Geographic visualization of comments on New York Times articles.
