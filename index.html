@@ -1,23 +1,25 @@
 <html>
 <head>
-	<title> Get With the Times </title>
 	<link rel="stylesheet" href="main_style.css">
+	<script src="jquery.js"> </script>
+
+	<title> Get With the Times </title>
 </head>
 <body>
-		<div class="header">
-			<p>Get With The Times</p>
-		</div> <!-- end of header -->
+	<div class="header">
+		<p>Get With The Times</p>
+	</div> <!-- end of header -->
 
-		<div class="content">
-			<img class="article" src="" alt="title of article">
-			<img class="article" src="" alt="title of article">
-			<img class="article" src="" alt="title of article">
-			<img class="article" src="" alt="title of article">			
-			<img class="article" src="" alt="title of article">
-			<img class="article" src="" alt="title of article">
-			<img class="article" src="" alt="title of article">
-			<img class="article" src="" alt="title of article">
-		</div> <!-- end of content -->
+	<div class="content">
+		<img class="article" src="" alt="title of article">
+		<img class="article" src="" alt="title of article">
+		<img class="article" src="" alt="title of article">
+		<img class="article" src="" alt="title of article">			
+		<img class="article" src="" alt="title of article">
+		<img class="article" src="" alt="title of article">
+		<img class="article" src="" alt="title of article">
+		<img class="article" src="" alt="title of article">
+	</div> <!-- end of content -->
 
 	<div class="footer"> 
 		<p>This is a footer</p>
@@ -25,8 +27,29 @@
 
 
 </body>
+<script src="d3/d3.v3.min.js"></script>
 
-<script type="d3/d3.v3.min.js">
+<script>
 	// Javascript here
-</script>
-</html>
+	var data;
+	var url = 'http://api.nytimes.com/svc/mostpopular/v2/mostviewed/all-sections/7.json?api-key=7fffaa70d16f04f4357c4b1d0b873090:17:66946433'
+	// var xhr = createCORSRequest('GET', url);
+	// xhr.send();
+
+	d3.json(url, function (json){
+		// asynchronous code here
+		console.log("oh hey there");
+		if (error) return console.warn("We have made a terrible mistake");
+		data = json;
+
+		for (var stuff in data){
+			console.log("this is a log");
+			var val = data[stuff];
+			alert ("Key: " + stuff + "value: " + val);
+		}
+		
+	})
+
+
+	</script>
+	</html>
