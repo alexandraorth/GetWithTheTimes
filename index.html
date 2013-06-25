@@ -20,46 +20,35 @@
 		<img class="article" src="" alt="title of article">
 		<img class="article" src="" alt="title of article">
 
+		<script src="d3/d3.v3.min.js"></script>
 		<script>
 	// Javascript here
-	var data;
-	var url = 'http://api.nytimes.com/svc/mostpopular/v2/mostviewed/all-sections/7.json?api-key=7fffaa70d16f04f4357c4b1d0b873090:17:66946433'
-	// var xhr = createCORSRequest('GET', url);
-	// xhr.send();
-
-	// d3.json(url, function (json){
-	// 	// asynchronous code here
-	// 	console.log("oh hey there");
-	// 	if (error) return console.warn("We have made a terrible mistake");
-	// 	data = json;
-
-	// 	for (var stuff in data){
-	// 		console.log("this is a log");
-	// 		var val = data[stuff];
-	// 		alert ("Key: " + stuff + "value: " + val);
+	// $.ajax({
+	// 	type: "POST",
+	// 	url: "~/nytimesquery.py",
+	// 	data: {'callFunc': 'query'},
+	// 	success: function(response){
+	// 		console.log("it worked");
 	// 	}
-		
-	// })
+ //    });
+	
+	var data; // a global
 
-        function myCallback(dataWeGotViaJsonp){
-        	console.log(dataWeGotViaJsonp);
-            // var text = '';
-            // var leng = dataWeGotViaJsonp.length;
-            // for(var i = 0; i < leng ; i++){
-            //     entry = dataWeGotViaJsonp[i];
-            //     text += '<p>' + entry['text'] + '</p>'
-            // }
-        }
-        </script>
-        <script type="text/javascript" src="http://api.nytimes.com/svc/mostpopular/v2/mostviewed/all-sections/7.json?api-key=7fffaa70d16f04f4357c4b1d0b873090:17:66946433" + "&callback=myCallback"> </script>
+	d3.json("nytimesquery.py", function(error, json) {
+		console.log("this worked");
+		data = json;
+		console.log(json);
+		//asynchronous code here! 
+	});
+
+	</script>
 
 	</div> <!-- end of content -->
 
 	<div class="footer"> 
-		<p>This is a footer</p>
+	<p>This is a footer</p>
 	</div> <!-- end of footer -->
 
 
-</body>
-<script src="d3/d3.v3.min.js"></script>
+	</body>
 	</html>
