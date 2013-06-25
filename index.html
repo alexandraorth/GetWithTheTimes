@@ -33,36 +33,35 @@
 	// 	}
  //    });
 
-    $.ajax({
-            type: "get",
-            url: "nytimesquery.py",
-            data: {'callFunc':'query'},
-            datatype:"script",
-            async: false,
-            success: function(response) {
-            // response is string, convert it to json and apply conditions.
-            console.log(response);
-        }
-        })//ajax closed
-	
-	// var data; // a global
+    // $.ajax({
+    //         type: "get",
+    //         url: "nytimesquery.py",
+    //         data: {'callFunc':'query'},
+    //         datatype:"script",
+    //         async: false,
+    //         success: function(response) {
+    //         // response is string, convert it to json and apply conditions.
+    //         console.log(response);
+    //     }
+    //     })//ajax closed
 
-	// d3.json("nytimesquery.py", function(error, json) {
-	// 	if (error) return console.warn(error);
-	// 	// console.log(error);
-	// 	data = json;
-	// 	console.log(json);
-	// 	//asynchronous code here! 
-	// });
+	var data; // a global
+
+	d3.json("jsonTemp.json", function(json) {
+		// console.log(error);
+		data = json;
+		console.log(data);
+		//asynchronous code here! 
+	});
 
 	</script>
 
-	</div> <!-- end of content -->
+</div> <!-- end of content -->
 
-	<div class="footer"> 
+<div class="footer"> 
 	<p>This is a footer</p>
-	</div> <!-- end of footer -->
+</div> <!-- end of footer -->
 
 
-	</body>
-	</html>
+</body>
+</html>
