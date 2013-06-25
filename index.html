@@ -24,22 +24,36 @@
 		<script>
 	// Javascript here
 	// $.ajax({
-	// 	type: "POST",
-	// 	url: "~/nytimesquery.py",
+	// 	type: "get",
+	// 	url: "nytimesquery.py",
 	// 	data: {'callFunc': 'query'},
 	// 	success: function(response){
-	// 		console.log("it worked");
+	// 		console.log(response);
+
 	// 	}
  //    });
-	
-	var data; // a global
 
-	d3.json("nytimesquery.py", function(error, json) {
-		console.log("this worked");
-		data = json;
-		console.log(json);
-		//asynchronous code here! 
-	});
+    $.ajax({
+            type: "get",
+            url: "nytimesquery.py",
+            data: {'callFunc':'query'},
+            datatype:"script",
+            async: false,
+            success: function(response) {
+            // response is string, convert it to json and apply conditions.
+            console.log(response);
+        }
+        })//ajax closed
+	
+	// var data; // a global
+
+	// d3.json("nytimesquery.py", function(error, json) {
+	// 	if (error) return console.warn(error);
+	// 	// console.log(error);
+	// 	data = json;
+	// 	console.log(json);
+	// 	//asynchronous code here! 
+	// });
 
 	</script>
 
