@@ -11,31 +11,23 @@
 	</div> <!-- end of header -->
 
 	<div class="content">
-		<img class="article" src="" alt="title of article">
-		<img class="article" src="" alt="title of article">
-		<img class="article" src="" alt="title of article">
-		<img class="article" src="" alt="title of article">			
-		<img class="article" src="" alt="title of article">
-		<img class="article" src="" alt="title of article">
-		<img class="article" src="" alt="title of article">
-		<img class="article" src="" alt="title of article">
+		<img class="article1" src="" alt="title of article">
+		<img class="article2" src="" alt="title of article">
+		<img class="article3" src="" alt="title of article">
+		<img class="article4" src="" alt="title of article">			
+		<img class="article5" src="" alt="title of article">
+		<img class="article6" src="" alt="title of article">
+		<img class="article7" src="" alt="title of article">
+		<img class="article8" src="" alt="title of article">
 
 		<script src="d3/d3.v3.min.js"></script>
 		<script>
-	// Javascript here
-	// $.ajax({
-	// 	type: "get",
-	// 	url: "nytimesquery.py",
-	// 	data: {'callFunc': 'query'},
-	// 	success: function(response){
-	// 		console.log(response);
+	// Attempts to read .py script to return json
 
-	// 	}
- //    });
 
     // $.ajax({
-    //         type: "get",
-    //         url: "nytimesquery.py",
+    //         type: "post",
+    //         url: "nytimesquery.py", //webserver config can't read python scripts!
     //         data: {'callFunc':'query'},
     //         datatype:"script",
     //         async: false,
@@ -47,12 +39,16 @@
 
 	var data; // a global
 
-	d3.json("jsonTemp.json", function(json) {
-		// console.log(error);
+	d3.json("jsonTemp.json", function(json) { // reading from file, to be generated dynamically 
 		data = json;
 		for (var i = 0; i < data.results.length; i++) {
 			if (data.results[i].type == "Article"){
-				console.log("yay");
+				var imgUrl = [];
+				imgUrl.push(data["results"][i]["media"][0]["media-metadata"][5]["url"]); //type Error at results[11]
+				for (var j = 0; j < imgUrl.length; j++) {
+					d3.select(".article" + (i+1)).attr("src", imgUrl[j]);		
+					console.log(imgUrl[j]);
+				};			
 			}
 			else{
 				console.log("nay");
