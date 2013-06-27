@@ -42,7 +42,7 @@
 	d3.json("jsonTemp.json", function(json) { // reading from file, to be generated dynamically 
 		data = json;
 		for (var i = 0; i < data.results.length; i++) {
-			if (data.results[i].type == "Article"){
+			if (data.results[i].type === "Article"){
 				var imgUrl = [];
 				imgUrl.push(data["results"][i]["media"][0]["media-metadata"][5]["url"]); //type Error at results[11]
 				for (var j = 0; j < imgUrl.length; j++) {
