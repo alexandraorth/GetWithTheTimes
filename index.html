@@ -1,7 +1,7 @@
 <html>
 <head>
 	<link rel="stylesheet" href="main_style.css">
-	<script src="jquery.js"> </script>
+	<script src="zepto.js"> </script>
 
 	<title> Get With the Times </title>
 </head>
@@ -25,9 +25,13 @@
 	// Attempts to read .py script to return json
 
 
+	// $.get("http://api.nytimes.com/svc/mostpopular/v2/mostviewed/all-sections/30.json?api-key=7fffaa70d16f04f4357c4b1d0b873090:17:66946433&callback=?", function(data){
+	// 	console.log(data);
+	// });
+
     // $.ajax({
-    //         type: "post",
-    //         url: "nytimesquery.py", //webserver config can't read python scripts!
+    //         type: "get",
+    //         url: "http://api.nytimes.com/svc/mostpopular/v2/mostviewed/all-sections/30.json?api-key=7fffaa70d16f04f4357c4b1d0b873090:17:66946433&callback=?", //webserver config can't read python scripts!
     //         data: {'callFunc':'query'},
     //         datatype:"script",
     //         async: false,
@@ -45,10 +49,22 @@
 		data = json;
 		for (var i = 0; i < data.results.length; i=i+1) {
 			if (data.results[i].type === "Article"){ 
-				imgUrl.push(data["results"][i]["media"][1]["media-metadata"][5]["url"]); 
-				title.push(data["results"][i]["title"]);
+				var search = data["results"][i]["media"][0]["media-metadata"];
+				console.log(search.length);
+				if (search.length >= 5){
+					imgUrl.push(data["results"][i]["media"][0]["media-metadata"][5]["url"]); 
+					title.push(data["results"][i]["title"]);
+				}
+				else if (data["results"][i]["media"][1]["media-metadata"].length >= 5){
+					imgUrl.push(data["results"][i]["media"][1]["media-metadata"][5]["url"]); 
+					title.push(data["results"][i]["title"]);
+				}
+				else{
+					i=i+1;
+				}
+
 				for (var j = 0; j < imgUrl.length; j=j+1) {
-					d3.select(".article" + (j+1)).attr("src", imgUrl[j]);		
+					d3.select(".article" + (j+1)).attr("src", imgUrl[j]).attr("alt", title[j]);		
 					console.log("what are we at " + j);
 				};
 			}
