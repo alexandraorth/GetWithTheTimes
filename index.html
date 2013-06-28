@@ -41,18 +41,18 @@
 
 	d3.json("jsonTemp.json", function(json) { // reading from file, to be generated dynamically 
 		data = json;
-		for (var i = 0; i < data.results.length; i++) {
+		var imgUrl = [];
+		for (var i = 0; i < data.results.length; i=i+1) {
 			if (data.results[i].type === "Article"){
-				var imgUrl = [];
 				imgUrl.push(data["results"][i]["media"][0]["media-metadata"][5]["url"]); //type Error at results[11]
-				for (var j = 0; j < imgUrl.length; j++) {
-					d3.select(".article" + (i+1)).attr("src", imgUrl[j]);		
-					console.log(imgUrl[j]);
-				};			
 			}
 			else{
 				console.log("nay");
-			}
+			}	
+		};
+		for (var j = 0; j < imgUrl.length; j=j+1) {
+			d3.select(".article" + (j+1)).attr("src", imgUrl[j]);		
+			console.log("what went into it " + imgUrl[j]);
 		};
 		//asynchronous code here! 
 	});
