@@ -1,7 +1,7 @@
 <html>
 <head>
 	<link rel="stylesheet" href="main_style.css">
-	<script src="zepto.js"> </script>
+	<script src="jquery.js"> </script>
 
 	<title> Get With the Times </title>
 </head>
@@ -27,7 +27,7 @@
 
 	// $.get("http://api.nytimes.com/svc/mostpopular/v2/mostviewed/all-sections/30.json?api-key=7fffaa70d16f04f4357c4b1d0b873090:17:66946433&callback=?", function(data){
 	// 	console.log(data);
-	// });
+	// }); //using simple AJAX call, with zepto
 
     // $.ajax({
     //         type: "get",
@@ -39,33 +39,36 @@
     //         // response is string, convert it to json and apply conditions.
     //         console.log(response);
     //     }
-    //     })//ajax closed
+    //     })// another ajax closed
 
 	var data; // a global
 	var imgUrl = [];
 	var title = [];
+	var articleUrl = [];
 
 	d3.json("jsonTemp.json", function(json) { // reading from file, to be generated dynamically 
 		data = json;
 		for (var i = 0; i < data.results.length; i=i+1) {
-			if (data.results[i].type === "Article"){ 
+			if (data.results[i].type === "Article" && data["results"][i]["media"].length > 1){ 
 				var search = data["results"][i]["media"][0]["media-metadata"];
 				console.log(search.length);
 				if (search.length >= 5){
 					imgUrl.push(data["results"][i]["media"][0]["media-metadata"][5]["url"]); 
 					title.push(data["results"][i]["title"]);
+					articleUrl.push(data["results"][i]["url"]);
 				}
 				else if (data["results"][i]["media"][1]["media-metadata"].length >= 5){
 					imgUrl.push(data["results"][i]["media"][1]["media-metadata"][5]["url"]); 
 					title.push(data["results"][i]["title"]);
+					articleUrl.push(data["results"][i]["url"]);
 				}
 				else{
 					i=i+1;
 				}
 
 				for (var j = 0; j < imgUrl.length; j=j+1) {
-					d3.select(".article" + (j+1)).attr("src", imgUrl[j]).attr("alt", title[j]);		
-					console.log("what are we at " + j);
+					d3.select(".article" + (j+1)).attr("src", imgUrl[j]).attr("alt", title[j]).attr("href", articleUrl[j]);		
+					console.log("this is an article url " + articleUrl[j]);
 				};
 			}
 			else{
