@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 	<meta charset="utf-8">
-	<title>D3 Map</title>
+	<title> NYTimes d3 Map</title>
 
 	<style type="text/css">
 	.Montana, .Oregon { fill: #8A2BE2; }
@@ -25,20 +25,17 @@
 	.attr("width", width)
 	.attr("height", height);
 
-	d3.json("us-atlas/topo/us-states.json", function(error, us) {
+	d3.json("us-atlas/topo/us.json", function(error, us) {
 		var states = topojson.feature(us, us.objects.states).features;
 
-		var projection = d3.geo.mercator()
-		    .center([-110,30])
-		    // .rotate([4.4, 0])
-		    // .parallels([50, 60])
-		    .scale(600)
+		var projection = d3.geo.albersUsa()
+		    .scale(1200)
 		    .translate([width / 2, height / 2]);
 
-		    var path = d3.geo.path()
+		var path = d3.geo.path()
 		    .projection(projection);        
 
-		    svg.selectAll(".state")
+		svg.selectAll(".state")
 		    .data(states)
 		    .enter().append("path")
 		    .attr("class", function(d){ return d.properties.name; })
