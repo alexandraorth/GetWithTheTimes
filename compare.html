@@ -1,43 +1,52 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 	<meta charset="utf-8">
-	<script src="jquery.js"> </script>
-	<script src="d3/d3.v3.min.js"></script>
-	<!--     <link rel="stylesheet" href="style.css">-->
+	<title>D3 Map</title>
+
+	<style type="text/css">
+	.Montana, .Oregon { fill: #8A2BE2; }
+	.York { fill: #D3D3D3; }
+	.Florida { fill: #6B8E23; }
+	.Arizona { fill: #FF4500; }
+	.Minnesota { fill: #87CEEB;  }
+
+	</style>
+
+	<script type="text/javascript" src="d3/d3.v3.js"></script>
+	<script src="http://d3js.org/topojson.v1.min.js"></script>
 </head>
 <body>
+	<script>
+	var width = 960;
+	height = 1160;
 
+	var svg = d3.select("body").append("svg")
+	.attr("width", width)
+	.attr("height", height);
+
+	d3.json("us-atlas/topo/us-states.json", function(error, us) {
+		var states = topojson.feature(us, us.objects.states).features;
+
+		var projection = d3.geo.mercator()
+		    .center([-110,30])
+		    // .rotate([4.4, 0])
+		    // .parallels([50, 60])
+		    .scale(600)
+		    .translate([width / 2, height / 2]);
+
+		    var path = d3.geo.path()
+		    .projection(projection);        
+
+		    svg.selectAll(".state")
+		    .data(states)
+		    .enter().append("path")
+		    .attr("class", function(d){ return d.properties.name; })
+		    .attr("d", path);
+
+		});
+
+	</script>
 </body>
+</html> 
 
-<script>
-
-var data;
-
-d3.json("comments.json", function(json){
-	data=json;
-});
-
-var length = 300;
-var width = 350;
-
-var svg = d3.select('body').append('svg')
-	.attr('width', width))
-	.attr('height', height);
-
-var group = svg.append('g');
-
-var projection = d3.geo.albersUsa();
-var coords = projection(['-77.679863', '43.088015']);
-
-group.append('circle')
-.attr('cx', coords[0])
-.attr('cy', coords[1])
-.attr('r', 10)
-.style('fill', 'red');
-
-
-
-</script>
-
-</html>
