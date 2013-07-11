@@ -10,6 +10,7 @@
 	.Florida { fill: #6B8E23; }
 	.Arizona { fill: #FF4500; }
 	.Minnesota { fill: #87CEEB;  }
+	.circle { color: red; width: 50px; height: 50px; }
 
 	</style>
 
@@ -47,8 +48,14 @@
 		    .attr("d", path)
 		    .attr("class", "place");    
 
+		svg.append("circle")
+		    .attr("r",10)
+		    .style("fill", "red")
+		    .attr("transform", function() {return "translate(" + projection([-74.4056612,40.0583238]) + ")";
 		});
 
+
+		});
 
 	</script>
 </body>
