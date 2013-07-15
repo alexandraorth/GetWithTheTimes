@@ -9,3 +9,8 @@ Geographic visualization of comments on New York Times articles.
 Query the New York Times community API for locations of commenters. 
 
 **Now running on Flask**
+
+You may need to execute the following instructions (sans quotes):
+
+'pip install flask'
+'pip install requests'
