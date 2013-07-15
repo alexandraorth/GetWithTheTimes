@@ -1,0 +1,76 @@
+<html>
+	<head>
+		<link rel="stylesheet" href="{{ url_for('static', filename='main_style.css') }}">
+		<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+		<script src="//cdnjs.cloudflare.com/ajax/libs/d3/3.2.2/d3.v3.min.js"></script>
+
+		<title> Get With the Times </title>
+	</head>
+
+	<body>
+
+		<div class="header">
+			<p>Get With The Times</p>
+		</div> <!-- end of header -->
+
+		<div class="content">
+			<img class="article1">
+			<img class="article2">
+			<img class="article3">
+			<img class="article4">			
+			<img class="article5">
+			<img class="article6">
+			<img class="article7">
+			<img class="article8">
+
+		</div>	
+
+		<script>
+
+			$SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
+
+			var data; // a global
+			var imgUrl = []; // a global
+			var title = []; // a global
+			var articleUrl = [];
+
+			$.ajax({
+			    type: "get",
+			    url: "{{url_for('query')}}", 
+			    success: function(response) {
+			        data = JSON.parse(response);
+
+					for (var i = 0; i < data.results.length; i=i+1) {
+						if (data.results[i].type === "Article" && data["results"][i]["media"].length > 1){ 
+							var search = data["results"][i]["media"][0]["media-metadata"];
+							console.log(search.length);
+							if (search.length >= 5){
+								imgUrl.push(data["results"][i]["media"][0]["media-metadata"][5]["url"]); 
+								title.push(data["results"][i]["title"]);
+								articleUrl.push(data["results"][i]["url"]);
+							}
+							else if (data["results"][i]["media"][1]["media-metadata"].length >= 5){
+								imgUrl.push(data["results"][i]["media"][1]["media-metadata"][5]["url"]); 
+								title.push(data["results"][i]["title"]);
+								articleUrl.push(data["results"][i]["url"]);
+							}
+							else{
+								i=i+1;
+							}
+							for (var j = 0; j<imgUrl.length; j=j+1) {
+								d3.select(".article" + (j+1)).attr("src", imgUrl[j]).attr("alt", title[j]).attr("href", articleUrl[j]);		
+								console.log("this is an article url " + articleUrl[j]);
+								console.log((j+1));
+							};
+						}
+						else{
+							console.log("nay");
+						}	
+					};	
+				}
+			});
+
+		</script>
+	</body>
+</html>
+
