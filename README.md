@@ -8,3 +8,4 @@ Geographic visualization of comments on New York Times articles.
 
 Query the New York Times community API for locations of commenters. 
 
+**Now running on Flask**
