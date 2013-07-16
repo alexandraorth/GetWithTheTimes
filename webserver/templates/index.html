@@ -43,7 +43,7 @@
 					for (var i = 0; i < data.results.length; i=i+1) {
 						if (data.results[i].type === "Article" && data["results"][i]["media"].length > 1){ 
 							var search = data["results"][i]["media"][0]["media-metadata"];
-							console.log(search.length);
+							//console.log(search.length);
 							if (search.length >= 5){
 								imgUrl.push(data["results"][i]["media"][0]["media-metadata"][5]["url"]); 
 								title.push(data["results"][i]["title"]);
@@ -58,10 +58,14 @@
 								i=i+1;
 							}
 							for (var j = 0; j<imgUrl.length; j=j+1) {
-								d3.select(".article" + (j+1)).attr("src", imgUrl[j]).attr("alt", title[j]).attr("href", articleUrl[j]);		
-								console.log("this is an article url " + articleUrl[j]);
-								console.log((j+1));
-							};
+								d3.select(".article" + (j+1))
+								.attr("src", imgUrl[j])
+								.attr("alt", title[j])
+								.attr("href", articleUrl[j])
+								.on("click", function(d) { console.log("look, ma " + this.getAttribute("href")); });		
+								//console.log("this is an article url " + articleUrl[j]);
+								//console.log((j+1));
+							}
 						}
 						else{
 							console.log("nay");
