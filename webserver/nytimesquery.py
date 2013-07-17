@@ -20,5 +20,9 @@ def query():
     f.close()
     return jsonResponse
 
+@app.route('/compare/<path:urlPath>')
+def compare(urlPath):
+	return render_template('compare.html', url=urlPath)
+
 if __name__ == "__main__":
     app.run(port=8080, debug=True)    

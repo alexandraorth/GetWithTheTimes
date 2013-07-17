@@ -4,21 +4,28 @@
 	<meta charset="utf-8">
 	<title> NYTimes d3 Map</title>
 
-	<style type="text/css">
-	.Montana, .Oregon { fill: #8A2BE2; }
-	.York { fill: #D3D3D3; }
-	.Florida { fill: #6B8E23; }
-	.Arizona { fill: #FF4500; }
-	.Minnesota { fill: #87CEEB;  }
-	.circle { color: red; width: 50px; height: 50px; }
+	<script src="//cdnjs.cloudflare.com/ajax/libs/d3/3.2.2/d3.v3.min.js"></script>
+	<script src="//cdnjs.cloudflare.com/ajax/libs/topojson/1.1.0/topojson.min.js"></script>
+	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
 
+	<style type="text/css">
+		.Montana, .Oregon { fill: #8A2BE2; }
+		.York { fill: #D3D3D3; }
+		.Florida { fill: #6B8E23; }
+		.Arizona { fill: #FF4500; }
+		.Minnesota { fill: #87CEEB;  }
+		.circle { color: red; width: 50px; height: 50px; }
 	</style>
 
-	<script type="text/javascript" src="d3/d3.v3.js"></script>
-	<script src="http://d3js.org/topojson.v1.min.js"></script>
 </head>
+
 <body>
 	<script>
+	url = window.location.href.match("%3C(.*)%3E")[1]
+
+	console.log("the following is the article url")
+	console.log(url)
+
 	var width = 960;
 	height = 1160;
 
@@ -26,7 +33,7 @@
 	.attr("width", width)
 	.attr("height", height);
 
-	d3.json("us-atlas/topo/us.json", function(error, us) {
+	d3.json("/static/us.json", function(error, us) {
 		var states = topojson.feature(us, us.objects.states).features;
 
 		var projection = d3.geo.albersUsa()

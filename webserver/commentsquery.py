@@ -31,6 +31,8 @@ for comments in jsonResponse['results']['comments']:
 		response = requests.get('https://maps.googleapis.com/maps/api/geocode/json?address=' + a + "&sensor=false")
 		jsonLocations = response.json()
 
+		print jsonLocations
+
 		coordinates = "["
 		locationCoor = ""
 		locationCoor += str(jsonLocations['results'][0]['geometry']['location']["lat"]) + ","
@@ -38,6 +40,8 @@ for comments in jsonResponse['results']['comments']:
 		coordinates += locationCoor
 
 		print coordinates
+		print "\n"
+
 
 		i = i + 1
 
