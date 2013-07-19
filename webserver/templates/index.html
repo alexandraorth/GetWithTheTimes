@@ -41,7 +41,7 @@
 
 			$.ajax({
 			    type: "get",
-			    url: "{{url_for('query')}}", 
+			    url: "{{url_for('queryArticles')}}", 
 			    success: function(response) {
 			        data = JSON.parse(response);
 

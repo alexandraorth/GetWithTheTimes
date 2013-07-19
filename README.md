@@ -15,4 +15,4 @@ You may need to execute the following instructions (sans quotes):
 'pip install flask' 
 'pip install requests'
 
-run nytimesquery.py to start up webserver and view index (index located in webserver/templates)
+run application.py to start up webserver and view index (index located in webserver/templates)
