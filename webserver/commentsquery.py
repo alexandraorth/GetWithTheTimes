@@ -5,7 +5,9 @@ api_key = "3617242150835f8e3b987deb6b58d404:0:66946433"
 offset = 25
 url = "http://www.nytimes.com/2013/07/14/fashion/sex-on-campus-she-can-play-that-game-too.html"
 
-def query():
+@app.route('/commentsQuery')
+
+def commentsQuery():
 	global offset
 	f = requests.get("http://api.nytimes.com/svc/community/v2/comments/url/exact-match.json?offset=" + str(offset) + "&url=" + url + "&api-key=" + api_key)
 	jsonResponse = f.json()
@@ -20,8 +22,8 @@ def query():
 
 		coordinates = ""
 		locationCoor = ""
-		locationCoor += "[" + str(jsonLocations['results'][0]['geometry']['location']["lat"]) + ","
-		locationCoor += str(jsonLocations['results'][0]['geometry']['location']["lng"]) + "]"
+		locationCoor += "[" + str(jsonLocations['results'][0]['geometry']['location']["lng"]) + ","
+		locationCoor += str(jsonLocations['results'][0]['geometry']['location']["lat"]) + "]"
 		coordinates += locationCoor
 
 		i = i + 1

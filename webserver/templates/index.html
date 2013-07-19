@@ -24,10 +24,10 @@
 			<a class="link7"><img class="article7"></a>
 			<a class="link8"><img class="article8"></a>
 
-		</div>	
+		</div>	<!-- end of content -->
 		
 		<div class="footer">
-		  <p> This is a footer </p>
+		  <p> This is a footer </p> <!-- end of footer -->
 		</div>
 	  
 		<script>
@@ -48,7 +48,6 @@
 					for (var i = 0; i < data.results.length; i=i+1) {
 						if (data.results[i].type === "Article" && data["results"][i]["media"].length > 1){ 
 							var search = data["results"][i]["media"][0]["media-metadata"];
-							//console.log(search.length);
 							if (search.length >= 5){
 								imgUrl.push(data["results"][i]["media"][0]["media-metadata"][5]["url"]); 
 								title.push(data["results"][i]["title"]);

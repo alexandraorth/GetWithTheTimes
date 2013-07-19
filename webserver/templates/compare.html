@@ -21,6 +21,9 @@
 
 <body>
 	<script>
+
+	$SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
+	
 	url = window.location.href.match("%3C(.*)%3E")[1]
 
 	console.log("the following is the article url")
@@ -55,14 +58,17 @@
 		    .attr("d", path)
 		    .attr("class", "place");    
 
-		svg.append("circle")
-		    .attr("r",10)
-		    .style("fill", "red")
-		    .attr("transform", function() {return "translate(" + projection([-74.4056612,40.0583238]) + ")";
-		});
-
-
-		});
+	$.ajax({
+			    type: "get",
+			    url: "{{url_for('commentsQuery')}}", 
+			    success: function(coordinates) {
+					svg.append("circle")
+		    		.attr("r",10)
+				    .style("fill", "red")
+				    .attr("transform", function() {return "translate(" + projection(coordinates) + ")";
+					});
+				}
+	});	
 
 	</script>
 </body>
