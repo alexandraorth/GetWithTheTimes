@@ -62,7 +62,7 @@
 	<script>
 
 		url = window.location.href.match("%3C(.*)%3E")[1]
-		console.log(url)
+		console.log("/queryComments/<" + url + ">")
 
 		$.ajax({
 			type: "get",
