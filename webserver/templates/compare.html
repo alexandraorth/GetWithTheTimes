@@ -21,8 +21,6 @@
 
 <body>
 	
-	<h2> Viz 1 (separating for clarity's sake) </h2>
-
 	<script>
 
 		var width = 960;
@@ -53,30 +51,24 @@
 			    .datum(topojson.feature(us, us.objects.places))
 			    .attr("d", path)
 			    .attr("class", "place");    
-			});	
 
-	</script>
-
-	<h2> Viz 2 </h2>
-
-	<script>
-
-		url = window.location.href.match("%3C(.*)%3E")[1]
-		console.log("/queryComments/<" + url + ">")
-
-		$.ajax({
-			type: "get",
-			url: "/queryComments/<" + url + ">", 
-			success: function(coordinates) {
-				console.log("made it into this success")
-				console.log("these are the coordinates" + coordinates)
-				svg.append("circle")
-				.attr("r",10)
-				.style("fill", "red")
-				.attr("transform", function() {
-					return "translate(" + projection(coordinates) + ")"			
-				});
-			}
+			url = window.location.href.match("%3C(.*)%3E")[1]
+			
+			$.ajax({
+				type: "get",
+				url: "/queryComments/<" + url + '>', 
+				success: function(coordinates) {
+					console.log("made it into this success")
+					console.log("these are the coordinates" + coordinates)
+					svg.append("circle")
+					.attr("r",10)
+					.style("fill", "red")
+					.attr("transform", function() {
+						return "translate(" + projection(coordinates) + ")"			
+					});
+				}
+			});
+			
 		});
 
 	</script>

@@ -42,6 +42,5 @@ def query(url):
 	
 	coordinates = coordinates[:-1] #removes last comma
 	coordinates += ']' #adds a bracket
-	print coordinates
-	print '\n'
+	
 	return coordinates
