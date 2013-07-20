@@ -2,13 +2,14 @@ import requests
 import json
 
 offset = 0
-coordinates = []
+coordinates = "["
 totalComments = 0
 def query(url):
 	global offset
 	global coordinates
 
 	api_key = "3617242150835f8e3b987deb6b58d404:0:66946433"
+	locationCoor = ""
 
 	# remove any brackets from the url if they exist 
 	if  url[0] == "<":
@@ -29,15 +30,18 @@ def query(url):
 			locationCoor = ""
 			locationCoor += "[" + str(jsonLocations['results'][0]['geometry']['location']["lng"]) + ","
 			locationCoor += str(jsonLocations['results'][0]['geometry']['location']["lat"]) + "]"
-			coordinates.append(locationCoor)
+			coordinates += locationCoor + ","
 
 	offset = offset + len(jsonResponse['results']['comments']); # increments of 25, as per their API
+	print offset
+	print coordinates
+	print "\n"
 
 	if offset < totalComments: #if there are still comments left to be looked at
 		query(url) # call query() again
-	else:
-		print "this is the else\n\n\n\n"
-		return str(coordinates)
-		print "does this ever happen, will python allow it to happen"
-
+	
+	coordinates = coordinates[:-1] #removes last comma
+	coordinates += ']' #adds a bracket
+	print coordinates
+	print '\n'
 	return coordinates
