@@ -41,3 +41,4 @@ def query(url):
 		query(url) # call query() again
 	
 	return jsonify(coordinates = coordinates)
+
