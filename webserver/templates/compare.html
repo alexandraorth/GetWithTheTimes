@@ -58,8 +58,8 @@
 				type: "get",
 				url: "/queryComments/<" + url + '>', 
 				success: function(coordinates) {
-					console.log("made it into this success")
-					console.log("these are the coordinates" + coordinates)
+					console.log(coordinates)
+
 					svg.append("circle")
 					.attr("r",10)
 					.style("fill", "red")
