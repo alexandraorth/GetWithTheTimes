@@ -1,8 +1,10 @@
 <html>
 	<head>
 		<link rel="stylesheet" href="{{ url_for('static', filename='main_style.css') }}">
+		<link rel="stylesheet" href='http://twitter.github.io/bootstrap/assets/css/bootstrap.css'>
 		<script src="//cdnjs.cloudflare.com/ajax/libs/d3/3.2.2/d3.v3.min.js"></script>
 		<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+		<script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
 		<style>
 		
 		.content{
@@ -20,6 +22,32 @@
 			<p>Get With The Times</p>
 		</div> <!-- end of header -->
 
+		<div class="menu">
+			<div class="btn-group">
+				<a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+					Menu
+					<span class="caret"></span>
+				</a>
+				<ul class="dropdown-menu">
+					<li><a href="#" onclick="changeSection('all-sections')">ALL SECTIONS</a></li>
+					<li><a href="#" onclick="changeSection('world')">WORLD</a></li>
+					<li><a href="#" onclick="changeSection('us')">U.S.</a></li>
+					<li><a href="#" onclick="changeSection('politics')">POLITICS</a></li>
+					<li><a href="#" onclick="changeSection('new york')">NEW YORK</a></li>
+					<li><a href="#" onclick="changeSection('business')">BUSINESS</a></li>
+					<li><a href="#" onclick="changeSection('dealbook')">DEALBOOK</a></li>
+					<li><a href="#" onclick="changeSection('technology')">TECHNOLOGY</a></li>
+					<li><a href="#" onclick="changeSection('sports')">SPORTS</a></li>
+					<li><a href="#" onclick="changeSection('science')">SCIENCE</a></li>
+					<li><a href="#" onclick="changeSection('health')">HEALTH</a></li>
+					<li><a href="#" onclick="changeSection('arts')">ARTS</a></li>
+					<li><a href="#" onclick="changeSection('style')">STYLE</a></li>
+					<li><a href="#" onclick="changeSection('opinion')">OPINION</a></li>
+				</ul>
+			</div>
+		</div>
+
+
 		<div class="content">
 			<a class="link1"><img class="article1"></a>
 			<a class="link2"><img class="article2"></a>
@@ -29,65 +57,92 @@
 			<a class="link6"><img class="article6"></a>
 			<a class="link7"><img class="article7"></a>
 			<a class="link8"><img class="article8"></a>
-
 		</div>	<!-- end of content -->
 		
 		<div class="footer">
 		  <p> This is a footer </p> <!-- end of footer -->
 		</div>
 	  
+
+		<!-- Start of javascript -->
 		<script>
+			
+			var section = "all-sections"
 
-			$SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
+			// beginning of function to change sections
+			function changeSection(name){
+				section = name;
+				console.log("from within changeSection, this is the section: " + section)
+				renderImages();
+			}
 
-			var data; // a global
-			var imgUrl = []; // a global
-			var title = []; // a global
-			var articleUrl = [];
+			// beginning of script to render images
 
-			$.ajax({
-			    type: "get",
-			    url: "{{url_for('queryArticles')}}", 
-			    success: function(response) {
-			        data = JSON.parse(response);
+			function renderImages(){
+				console.log("from within renderImages, this is the section " + section)
+				var data; // a global
+				var imgUrl = []; // a global
+				var title = []; // a global
+				var articleUrl = [];
 
-					for (var i = 0; i < data.results.length; i=i+1) {
-						if (data.results[i].type === "Article" && data["results"][i]["media"].length > 1){ 
-							var search = data["results"][i]["media"][0]["media-metadata"];
-							if (search.length >= 5){
-								imgUrl.push(data["results"][i]["media"][0]["media-metadata"][5]["url"]); 
-								title.push(data["results"][i]["title"]);
-								articleUrl.push(data["results"][i]["url"]);
+				$.ajax({
+					type: "get",
+					url: "/queryArticles/<" + section + ">", 
+					success: function(response) {
+						data = JSON.parse(response);
+
+						//go through response and populate arrays with information
+						for (var i = 0; i < data.results.length; i=i+1) {
+							if (data.results[i].type === "Article" && data["results"][i]["media"].length >= 1){ 
+
+								if (data["results"][i]["media"][0]["media-metadata"] >= 5){
+									imgUrl.push(data["results"][i]["media"][0]["media-metadata"][5]["url"]); 
+									title.push(data["results"][i]["title"]);
+									articleUrl.push(data["results"][i]["url"]);
+								}
+
+								else if (data["results"][i]["media"].length > 1 &&
+									data["results"][i]["media"][1]["media-metadata"].length >= 5){
+									imgUrl.push(data["results"][i]["media"][1]["media-metadata"][5]["url"]); 
+									title.push(data["results"][i]["title"]);
+									articleUrl.push(data["results"][i]["url"]);
+								}	
+
+								else if(section != "all-sections" 
+									&& data["results"][i]["media"][0]["media-metadata"].length < 5
+									&& data["results"][i]["media"][0]["media-metadata"].length >= 1){
+
+									var holder = data["results"][i]["media"][0]["media-metadata"][0]["url"] 
+									holder = holder.replace("thumbStandard", "square320")
+
+									imgUrl.push(holder); 
+									title.push(data["results"][i]["title"]);
+									articleUrl.push(data["results"][i]["url"]);
+
+								}
 							}
-							else if (data["results"][i]["media"][1]["media-metadata"].length >= 5){
-								imgUrl.push(data["results"][i]["media"][1]["media-metadata"][5]["url"]); 
-								title.push(data["results"][i]["title"]);
-								articleUrl.push(data["results"][i]["url"]);
-							}
-							else{
-								i=i+1;
-							}
-							for (var j = 0; j<imgUrl.length; j=j+1) {
-								d3.select(".article" + (j+1))
-								.attr("src", imgUrl[j])
-								.attr("alt", title[j]);
-								
-								d3.select(".link" + (j+1))
-								.attr("href", function(d){
-									return "/compare/<" + articleUrl[j] + ">"
-								})
-								.on("click", function(d) { 
-									console.log("look, ma " + this.getAttribute("href")); 
+						};	
 
-								});		
-							}
+						//go through populated arrays and place images on page
+						for (var j = 0; j<imgUrl.length; j=j+1) {
+							d3.select(".article" + (j+1))
+							.attr("src", imgUrl[j])
+							.attr("alt", title[j]);
+
+							d3.select(".link" + (j+1))
+							.attr("href", function(d){
+								return "/compare/<" + articleUrl[j] + ">"
+							})
+							.on("click", function(d) { 
+								console.log("look, ma " + this.getAttribute("href")); 
+
+							});		
 						}
-						else{
-							console.log("nay");
-						}	
-					};	
-				}
-			});
+					}
+				});
+			}
+
+			renderImages();
 
 		</script>
 	</body>

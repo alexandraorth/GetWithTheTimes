@@ -1,4 +1,4 @@
-from flask import jsonify
+from flask import jsonify, Flask, current_app
 import requests
 import json
 import copy
@@ -36,9 +36,13 @@ def query(url):
 			coordinates.append(locationCoor)
 
 	offset = offset + len(jsonResponse['results']['comments']); # increments of 25, as per their API
+	print '\n'
+	print offset
 
 	if offset < totalComments: #if there are still comments left to be looked at
 		query(url) # call query() again
 	
+	with app.app_context():
+		print jsonify(coordinates = coordinates)
 	return jsonify(coordinates = coordinates)
 
