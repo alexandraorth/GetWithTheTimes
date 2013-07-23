@@ -29,6 +29,8 @@ def query(url):
 
 		jsonLocations = response.json()
 
+		print jsonLocations
+
 		if jsonLocations['status'] == "OK":
 			locationCoor = []
 			locationCoor.append(jsonLocations['results'][0]['geometry']['location']["lng"])

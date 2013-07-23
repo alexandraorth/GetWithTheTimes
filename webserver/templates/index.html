@@ -3,21 +3,15 @@
 		<link rel="stylesheet" href="{{ url_for('static', filename='main_style.css') }}">
 		<script src="//cdnjs.cloudflare.com/ajax/libs/d3/3.2.2/d3.v3.min.js"></script>
 		<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
-		<style>
-		
-		.content{
-			background-color: black;
-		}
-		</style>
-
 		<title> Get With the Times </title>
 	</head>
 
 
 	<body>
 
+		<img src="wtf.png">
 		<div class="header">
-			<p>Get With The Times</p>
+			
 		</div> <!-- end of header -->
 
 		<div class="content">
@@ -77,7 +71,8 @@
 									return "/compare/<" + articleUrl[j] + ">"
 								})
 								.on("click", function(d) { 
-									console.log("look, ma " + this.getAttribute("href")); 
+									console.log("look, ma " + this.getAttribute("href"));
+
 
 								});		
 							}
