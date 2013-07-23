@@ -18,6 +18,10 @@ app = Flask(__name__)
 def index():
     return render_template('index.html')
 
+@app.route("/articles/<section>")
+def articles(section):
+	return render_template('articles.html', section=section)
+
 #returns about NYTimes most popular articles
 @app.route('/queryArticles/<section>')
 def queryArticles(section):
