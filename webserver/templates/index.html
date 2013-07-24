@@ -1,5 +1,5 @@
 <html>
-	<head>
+
 		<link rel="stylesheet" href='http://twitter.github.io/bootstrap/assets/css/bootstrap.css'>
 		<link rel="stylesheet" href="{{ url_for('static', filename='main_style.css') }}">
 		<script src="{{ url_for('static', filename='main_js.js')}}"></script>
@@ -7,7 +7,9 @@
 		<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
 		<script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
 
+	<div id="top"> <img src="/static/banner.jpg" alt=""> </div>
 
+	<body>
 		<div class="header">
 
 			<img class="banner" src="/static/banner.svg">	
@@ -36,7 +38,7 @@
 						</ul>
 					</div>
 				</div>		
-		</div> <!-- end of header -->
+			</div> <!-- end of header -->
 
 		<div class="content">
 			<a class="link1"><img class="article1"></a>
@@ -55,11 +57,12 @@
 		  <img class="facebook" src="/static/facebook.svg">	
 		  <img class="google_plus" src="/static/google_plus.svg">	
 		</div>  <!-- end of footer -->
-	  
+	</body>
+		
 		<script>
 			changeSection("all-sections")
 		</script>
 
-	</body>
+	</body> -->
 
-</html>
+	</html>
