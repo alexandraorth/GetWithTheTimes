@@ -1,0 +1,78 @@
+<html>
+	<head>
+		<link rel="stylesheet" href='http://twitter.github.io/bootstrap/assets/css/bootstrap.css'>
+		<link rel="stylesheet" href="{{ url_for('static', filename='main_style.css') }}">
+		<script src="{{ url_for('static', filename='main_js.js')}}"></script>
+		<script src="//cdnjs.cloudflare.com/ajax/libs/d3/3.2.2/d3.v3.min.js"></script>
+		<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+		<script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
+		<style>
+		
+		.content{
+			background-color: black;
+		}
+		</style>
+
+		<title> Get With the Times </title>
+	</head>
+
+
+	<body>
+
+		<div class="header">
+			<img src='/static/banner.png' class="banner"></img>
+
+			<div class="menu">
+				<div class="btn-group">
+					<a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+						Menu
+						<span class="caret"></span>
+					</a>
+					<ul class="dropdown-menu">
+						<li><a href="#" onclick="changeSection('all-sections')">ALL SECTIONS</a></li>
+						<li><a href="#" onclick="changeSection('world')">WORLD</a></li>
+						<li><a href="#" onclick="changeSection('national')">U.S.</a></li>
+						<li><a href="#" onclick="changeSection('politics')">POLITICS</a></li>
+						<li><a href="#" onclick="changeSection('nyregion')">NEW YORK</a></li>
+						<li><a href="#" onclick="changeSection('business')">BUSINESS</a></li>
+						<li><a href="#" onclick="changeSection('dealbook')">DEALBOOK</a></li>
+						<li><a href="#" onclick="changeSection('technology')">TECHNOLOGY</a></li>
+						<li><a href="#" onclick="changeSection('sports')">SPORTS</a></li>
+						<li><a href="#" onclick="changeSection('science')">SCIENCE</a></li>
+						<li><a href="#" onclick="changeSection('health')">HEALTH</a></li>
+						<li><a href="#" onclick="changeSection('arts')">ARTS</a></li>
+						<li><a href="#" onclick="changeSection('style')">STYLE</a></li>
+						<li><a href="#" onclick="changeSection('opinion')">OPINION</a></li>
+					</ul>
+				</div>
+			</div>
+		</div> <!-- end of header -->
+
+
+		<div class="content">
+			<a class="link1"><img class="article1"></a>
+			<a class="link2"><img class="article2"></a>
+			<a class="link3"><img class="article3"></a>
+			<a class="link4"><img class="article4"></a>
+			<a class="link5"><img class="article5"></a>
+			<a class="link6"><img class="article6"></a>
+			<a class="link7"><img class="article7"></a>
+			<a class="link8"><img class="article8"></a>
+		</div>	<!-- end of content -->
+		
+		<div class="footer">
+		  <p> This is a footer </p> <!-- end of footer -->
+		</div>
+	  
+
+		<!-- Call Javascript -->
+		<script>
+			section = window.location.href.match("%3C(.*)%3E")[1]
+
+			console.log("this is the section from within articles.html" + section)
+			changeSection(section);
+
+		</script>
+	</body>
+</html>
+

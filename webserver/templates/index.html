@@ -1,14 +1,21 @@
 <html>
 	<head>
+		<link rel="stylesheet" href='http://twitter.github.io/bootstrap/assets/css/bootstrap.css'>
+
 		<link rel="stylesheet" href="{{ url_for('static', filename='main_style.css') }}">
-		<script src="//cdnjs.cloudflare.com/ajax/libs/d3/3.2.2/d3.v3.min.js"></script>
+		<script src="{{ url_for('static', filename='main_js.js')}}"></script>
 		<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+<<<<<<< HEAD
+=======
+		<script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
+
+>>>>>>> alex_branch_2
 		<title> Get With the Times </title>
 	</head>
 
-
 	<body>
 
+<<<<<<< HEAD
 		<div class="header">
 			<img class="banner" src="/static/banner.svg">			
 		</div> <!-- end of header -->
@@ -84,8 +91,35 @@
 					};	
 				}
 			});
+=======
+		<img src='/static/banner.png' class="banner"></img>
 
-		</script>
+		<div class="menu">
+			<div class="btn-group">
+				<a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+					Menu
+					<span class="caret"></span>
+				</a>
+				<ul class="dropdown-menu">
+					<li><a href="/articles/<all-sections>" >ALL SECTIONS</a></li>
+					<li><a href="/articles/<world>" >WORLD</a></li>
+					<li><a href="/articles/<national>" >U.S.</a></li>
+					<li><a href="/articles/<politics>" >POLITICS</a></li>
+					<li><a href="/articles/<nyregion>" >NEW YORK</a></li>
+					<li><a href="/articles/<business>" >BUSINESS</a></li>
+					<li><a href="/articles/<dealbook>" >DEALBOOK</a></li>
+					<li><a href="/articles/<technology>" >TECHNOLOGY</a></li>
+					<li><a href="/articles/<sports>" >SPORTS</a></li>
+					<li><a href="/articles/<science>" >SCIENCE</a></li>
+					<li><a href="/articles/<health>" >HEALTH</a></li>
+					<li><a href="/articles/<arts>" >ARTS</a></li>
+					<li><a href="/articles/<style>" >STYLE</a></li>
+					<li><a href="/articles/<opinion>" >OPINION</a></li>
+				</ul>
+			</div>
+		</div>
+>>>>>>> alex_branch_2
+
 	</body>
-</html>
 
+</html>

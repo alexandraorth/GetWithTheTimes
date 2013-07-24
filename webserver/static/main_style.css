@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 
 .article1,.article2,.article3,.article4,.article5,.article6,.article7,.article8
 {
@@ -30,18 +31,67 @@
 	height: auto;
 /*		border: 2px solid yellow;
 */	float: left;
+=======
+img{
+	width: 280px;
+	height: 300px;
+	margin-top:30px;
+	margin-right:15px;
+	margin-left:15px;
+	border-color: #ABD3DF;
+}
+body{
+	background-color: #5D5E5E;
+}
+h1{
+	font-family: 'Prestige Elite Std';
+	font-size: 70;
+	text-align: center;
+	margin-top: 50px;
+	color: white;
+}
+.banner{
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+	margin-bottom: auto;
+	margin-top: auto;
+	width: 1000px;
+	height: 200px;
+}
+.header{
+	width: 100%;
+	height: 20%;
+	float: left;
+	background-color: black;
+}
+.content{
+	width: 100%;
+	height: auto;
+	border: 2px;
+	float: left;
+	background-color: gray;
+>>>>>>> alex_branch_2
 }
 .article{
 	float: left;
 	margin: 5px;
+<<<<<<< HEAD
 /*		border: 2px solid green;
 */	}
 .footer{
 	background-color: black;
+=======
+	margin-top: 30px;
+	border: 2px;
+}
+.footer{
+>>>>>>> alex_branch_2
 	clear: both;
 	margin-top: -150px;
 	width: 100%;
 	height: 15%;
+<<<<<<< HEAD
 /*		border: 2px solid black;
 */	}
 .twitter,.facebook,.google_plus
@@ -52,3 +102,14 @@
 
 
 
+=======
+	background-color: black;
+}
+.btn-group{
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+	margin-bottom: auto;
+	margin-top: auto;
+}
+>>>>>>> alex_branch_2
