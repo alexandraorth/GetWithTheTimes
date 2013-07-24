@@ -1,23 +1,41 @@
 <html>
 	<head>
 		<link rel="stylesheet" href='http://twitter.github.io/bootstrap/assets/css/bootstrap.css'>
-
 		<link rel="stylesheet" href="{{ url_for('static', filename='main_style.css') }}">
 		<script src="{{ url_for('static', filename='main_js.js')}}"></script>
+		<script src="//cdnjs.cloudflare.com/ajax/libs/d3/3.2.2/d3.v3.min.js"></script>
 		<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
-<<<<<<< HEAD
-=======
 		<script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
 
->>>>>>> alex_branch_2
-		<title> Get With the Times </title>
-	</head>
 
-	<body>
-
-<<<<<<< HEAD
 		<div class="header">
-			<img class="banner" src="/static/banner.svg">			
+
+			<img class="banner" src="/static/banner.svg">	
+
+			<div class="menu">
+					<div class="btn-group">
+						<a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+							Menu
+							<span class="caret"></span>
+						</a>
+						<ul class="dropdown-menu">
+							<li><a href="#" onclick="changeSection('all-sections')">ALL SECTIONS</a></li>
+							<li><a href="#" onclick="changeSection('world')">WORLD</a></li>
+							<li><a href="#" onclick="changeSection('national')">U.S.</a></li>
+							<li><a href="#" onclick="changeSection('politics')">POLITICS</a></li>
+							<li><a href="#" onclick="changeSection('nyregion')">NEW YORK</a></li>
+							<li><a href="#" onclick="changeSection('business')">BUSINESS</a></li>
+							<li><a href="#" onclick="changeSection('dealbook')">DEALBOOK</a></li>
+							<li><a href="#" onclick="changeSection('technology')">TECHNOLOGY</a></li>
+							<li><a href="#" onclick="changeSection('sports')">SPORTS</a></li>
+							<li><a href="#" onclick="changeSection('science')">SCIENCE</a></li>
+							<li><a href="#" onclick="changeSection('health')">HEALTH</a></li>
+							<li><a href="#" onclick="changeSection('arts')">ARTS</a></li>
+							<li><a href="#" onclick="changeSection('style')">STYLE</a></li>
+							<li><a href="#" onclick="changeSection('opinion')">OPINION</a></li>
+						</ul>
+					</div>
+				</div>		
 		</div> <!-- end of header -->
 
 		<div class="content">
@@ -39,86 +57,8 @@
 		</div>  <!-- end of footer -->
 	  
 		<script>
-
-			$SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
-
-			var data; // a global
-			var imgUrl = []; // a global
-			var title = []; // a global
-			var articleUrl = [];
-
-			$.ajax({
-			    type: "get",
-			    url: "{{url_for('queryArticles')}}", 
-			    success: function(response) {
-			        data = JSON.parse(response);
-
-					for (var i = 0; i < data.results.length; i=i+1) {
-						if (data.results[i].type === "Article" && data["results"][i]["media"].length > 1){ 
-							var search = data["results"][i]["media"][0]["media-metadata"];
-							if (search.length >= 5){
-								imgUrl.push(data["results"][i]["media"][0]["media-metadata"][5]["url"]); 
-								title.push(data["results"][i]["title"]);
-								articleUrl.push(data["results"][i]["url"]);
-							}
-							else if (data["results"][i]["media"][1]["media-metadata"].length >= 5){
-								imgUrl.push(data["results"][i]["media"][1]["media-metadata"][5]["url"]); 
-								title.push(data["results"][i]["title"]);
-								articleUrl.push(data["results"][i]["url"]);
-							}
-							else{
-								i=i+1;
-							}
-							for (var j = 0; j<imgUrl.length; j=j+1) {
-								d3.select(".article" + (j+1))
-								.attr("src", imgUrl[j])
-								.attr("alt", title[j]);
-								
-								d3.select(".link" + (j+1))
-								.attr("href", function(d){
-									return "/compare/<" + articleUrl[j] + ">"
-								})
-								.on("click", function(d) { 
-									console.log("look, ma " + this.getAttribute("href"));
-
-
-								});		
-							}
-						}
-						else{
-							console.log("nay");
-						}	
-					};	
-				}
-			});
-=======
-		<img src='/static/banner.png' class="banner"></img>
-
-		<div class="menu">
-			<div class="btn-group">
-				<a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
-					Menu
-					<span class="caret"></span>
-				</a>
-				<ul class="dropdown-menu">
-					<li><a href="/articles/<all-sections>" >ALL SECTIONS</a></li>
-					<li><a href="/articles/<world>" >WORLD</a></li>
-					<li><a href="/articles/<national>" >U.S.</a></li>
-					<li><a href="/articles/<politics>" >POLITICS</a></li>
-					<li><a href="/articles/<nyregion>" >NEW YORK</a></li>
-					<li><a href="/articles/<business>" >BUSINESS</a></li>
-					<li><a href="/articles/<dealbook>" >DEALBOOK</a></li>
-					<li><a href="/articles/<technology>" >TECHNOLOGY</a></li>
-					<li><a href="/articles/<sports>" >SPORTS</a></li>
-					<li><a href="/articles/<science>" >SCIENCE</a></li>
-					<li><a href="/articles/<health>" >HEALTH</a></li>
-					<li><a href="/articles/<arts>" >ARTS</a></li>
-					<li><a href="/articles/<style>" >STYLE</a></li>
-					<li><a href="/articles/<opinion>" >OPINION</a></li>
-				</ul>
-			</div>
-		</div>
->>>>>>> alex_branch_2
+			changeSection("all-sections")
+		</script>
 
 	</body>
 
