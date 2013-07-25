@@ -15,14 +15,14 @@ app = Flask(__name__)
 
 # main route, on localhost renders cover
 @app.route('/')
-def index():
+def cover():
     return render_template('cover.html')
 
 @app.route('/articles/<section>')
 def articles(section):
 	return render_template('articles.html', section=section)
 
-@app.route('/index')
+@app.route('/index/')
 def index():
 	return render_template('index.html')
 
