@@ -16,8 +16,11 @@ def query(url):
 	# remove any brackets from the url if they exist 
 	if  url[0] == "<":
 		url = url[1:-1]
+		jsonResponse = []
 
+	print "http://api.nytimes.com/svc/community/v2/comments/url/exact-match.json?offset=" + str(offset) + "&url=" + url + "&api-key=" + api_key
 	f = requests.get("http://api.nytimes.com/svc/community/v2/comments/url/exact-match.json?offset=" + str(offset) + "&url=" + url + "&api-key=" + api_key)
+	print f
 	jsonResponse = f.json()
 	f.close()
 
@@ -29,7 +32,7 @@ def query(url):
 
 		jsonLocations = response.json()
 
-		print jsonLocations
+		#print jsonLocations
 
 		if jsonLocations['status'] == "OK":
 			locationCoor = []
@@ -44,7 +47,5 @@ def query(url):
 	if offset < totalComments: #if there are still comments left to be looked at
 		query(url) # call query() again
 	
-	with app.app_context():
-		print jsonify(coordinates = coordinates)
 	return jsonify(coordinates = coordinates)
 
