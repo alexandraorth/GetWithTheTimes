@@ -17,6 +17,7 @@ def query(url):
 	if  url[0] == "<":
 		url = url[1:-1]
 		jsonResponse = []
+		offset = 0
 
 	print "http://api.nytimes.com/svc/community/v2/comments/url/exact-match.json?offset=" + str(offset) + "&url=" + url + "&api-key=" + api_key
 	f = requests.get("http://api.nytimes.com/svc/community/v2/comments/url/exact-match.json?offset=" + str(offset) + "&url=" + url + "&api-key=" + api_key)
