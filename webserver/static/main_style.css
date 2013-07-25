@@ -47,6 +47,11 @@
 body{
 	z-index: 0;
 }
+.btn-group{
+	position: relative;
+	left: 50%;
+	right: 50%;
+}
 .banner{
 	width: 1000px;
 	height: 120px;
