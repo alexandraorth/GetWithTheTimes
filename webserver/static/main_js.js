@@ -73,6 +73,7 @@ function renderImages(){
 				.attr("class", "shadow_box")
 				.append("a")
 				.attr("href", articleUrl[j])
+				.attr("class", "boxlink")
 				.text(title[j])
 
 				d3.select(".article" + (j+1))
@@ -82,7 +83,7 @@ function renderImages(){
 	
 			$('.square').hover(
 				function(){
-					$(this).parent().find('.shadow_box').animate({opacity:1});
+					$(this).parent().find('.shadow_box').animate({opacity:3});
 				},
 				function(){
 					$(this).parent().find('.shadow_box').animate({opacity:0});
