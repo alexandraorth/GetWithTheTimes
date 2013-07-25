@@ -56,19 +56,41 @@ function renderImages(){
 
 			//go through populated arrays and place images on page
 			for (var j = 0; j<imgUrl.length; j=j+1) {
-				d3.select(".article" + (j+1))
-				.attr("src", imgUrl[j])
-				.attr("alt", title[j]);
 
 				d3.select(".link" + (j+1))
 				.attr("href", function(d){
 					return "/compare/<" + articleUrl[j] + ">"
 				})
-				.on("click", function(d) { 
-					console.log("look, ma " + this.getAttribute("href")); 
 
-				});		
+				var link = d3.select(".link" + (j+1))
+
+				link.select(".square")
+				.select('.shadow_box')
+				.remove()
+
+				link.select('.square')
+				.append("div")
+				.attr("class", "shadow_box")
+				.append("a")
+				.attr("href", articleUrl[j])
+				.attr("class", "boxlink")
+				.text(title[j])
+
+				d3.select(".article" + (j+1))
+				.attr("src", imgUrl[j])
+				.attr("alt", title[j])
 			}
+	
+			$('.square').hover(
+				function(){
+					$(this).parent().find('.shadow_box').animate({opacity:3});
+				},
+				function(){
+					$(this).parent().find('.shadow_box').animate({opacity:0});
+				}
+			);
+
+
 		}
 	});
 }
