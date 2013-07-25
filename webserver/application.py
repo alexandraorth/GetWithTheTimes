@@ -13,14 +13,18 @@ import commentsAPI
 
 app = Flask(__name__)
 
-# main route, on localhost renders index
-@app.route("/")
+# main route, on localhost renders cover
+@app.route('/')
 def index():
-    return render_template('index.html')
+    return render_template('cover.html')
 
-@app.route("/articles/<section>")
+@app.route('/articles/<section>')
 def articles(section):
 	return render_template('articles.html', section=section)
+
+@app.route('/index')
+def index():
+	return render_template('index.html')
 
 #returns about NYTimes most popular articles
 @app.route('/queryArticles/<section>')
