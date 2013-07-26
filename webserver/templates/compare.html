@@ -4,6 +4,7 @@
 	<meta charset="utf-8">
 	<title> NYTimes d3 Map</title>
 
+  <!--<script src="{{ url_for('static', filename='compare_js.js')}}"></script> -->
 	<script src="//cdnjs.cloudflare.com/ajax/libs/d3/3.2.2/d3.v3.min.js"></script>
 	<script src="//cdnjs.cloudflare.com/ajax/libs/topojson/1.1.0/topojson.min.js"></script>
 	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
@@ -21,102 +22,107 @@
 			fill: #ADD8E6;
 		}
 
-
 		.circle { color: red; width: 50px; height: 50px; }
 	</style>
 
 </head>
-
 <body>
-	
-	<script>
+<script type="text/javascript">
+  var width = 960;
+  height = 1160;
 
-		var width = 960;
-		height = 1160;
+  var x, y, k; 
+  var centered;
 
-		var x, y, k; 
-		var centered;
+  var svg = d3.select("body").append("svg")
+  .attr("width", width)
+  .attr("height", height);
 
-		var svg = d3.select("body").append("svg")
-		.attr("width", width)
-		.attr("height", height);
+  url = window.location.href.match("%3C(.*)%3E")[1]
+  
+  d3.json("/static/us.json", function(error, us) {
 
-    d3.json("/static/us.json", function(error, us) {
+   // url = window.location.href.match("%3C(.*)%3E")[1]
 
-     url = window.location.href.match("%3C(.*)%3E")[1]
+   $.ajax({
+    type: "get",
+    url: "/queryComments/<" + url + '>', 
+    success: function(data) {
+     console.log(data);
+     data.coordinates.forEach(function(d){
+      svg.append("circle")
+      .attr("r",10)
+      .style("fill", "red")
+      .attr("transform", function() {
+       return "translate(" + projection(d) + ")"      
+     });
+    });
 
-     $.ajax({
-      type: "get",
-      url: "/queryComments/<" + url + '>', 
-      success: function(data) {
-       console.log(data);
-       data.coordinates.forEach(function(d){
-        svg.append("circle")
-        .attr("r",10)
-        .style("fill", "red")
-        .attr("transform", function() {
-         return "translate(" + projection(d) + ")"			
-       });
-      });
+   }
+ });
 
-     }
-   });
+   var states = topojson.feature(us, us.objects.states).features;
 
-     var states = topojson.feature(us, us.objects.states).features;
+   var projection = d3.geo.albersUsa()
+   .scale(1200)
+   .translate([width / 2, height / 2]);
 
-     var projection = d3.geo.albersUsa()
-     .scale(1200)
-     .translate([width / 2, height / 2]);
+   var path = d3.geo.path()
+   .projection(projection)    
+   .pointRadius(2);
 
-     var path = d3.geo.path()
-     .projection(projection)    
-     .pointRadius(2);
+   var g = svg.append("g");
 
-     var g = svg.append("g");
+   g.append("g")
+   .attr("id", "states")
+   .selectAll(".state")
+   .data(states)
+   .enter().append("path")
+   .attr("class", function(d){ return d.properties.name; })
+   .attr("d", path)
+   .on("click", clicked);
 
-     g.append("g")
-     .attr("id", "states")
-     .selectAll(".state")
-     .data(states)
-     .enter().append("path")
-     .attr("class", function(d){ return d.properties.name; })
-     .attr("d", path)
-     .on("click", clicked);
+   g.append("g")
+   .datum(topojson.mesh(us, us.objects.states, function(a, b) { return a !== b; }))
+   .attr("id", "state-borders")
+   .attr("d", path);
 
-     g.append("g")
-     .datum(topojson.mesh(us, us.objects.states, function(a, b) { return a !== b; }))
-     .attr("id", "state-borders")
-     .attr("d", path);
+   function clicked(d) {
+    var x, y, k;
 
-     function clicked(d) {
-      var x, y, k;
+    if (d && centered !== d) {
+      var centroid = path.centroid(d);
+      x = centroid[0];
+      y = centroid[1];
+      k = 4;
+      centered = d;
+      d3.selectAll("circle").style("display", "none");
+    } else {
+      x = width / 2;
+      y = height / 2;
+      k = 1;
+      centered = null;
+      d3.selectAll("circle").style("display", "inline");
+    }
 
-      if (d && centered !== d) {
-        var centroid = path.centroid(d);
-        x = centroid[0];
-        y = centroid[1];
-        k = 4;
-        centered = d;
-        d3.selectAll("circle").style("display", "none");
-      } else {
-        x = width / 2;
-        y = height / 2;
-        k = 1;
-        centered = null;
-        d3.selectAll("circle").style("display", "inline");
-      }
+    g.selectAll("path")
+    .classed("active", centered && function(d) { return d === centered; });
 
-      g.selectAll("path")
-      .classed("active", centered && function(d) { return d === centered; });
+    g.transition()
+    .duration(750)
+    .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")scale(" + k + ")translate(" + -x + "," + -y + ")")
+    .style("stroke-width", 1.5 / k + "px");
 
-      g.transition()
-      .duration(750)
-      .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")scale(" + k + ")translate(" + -x + "," + -y + ")")
-      .style("stroke-width", 1.5 / k + "px");
+  } 
+});
 
-    }	
-  });
-
+$.ajax({
+    type: "get",
+    url: "/queryQuote/<" + url + '>', 
+    success: function(data) {
+     console.log("pls work " + data);
+   }
+});
 </script>
 </body>
 </html> 

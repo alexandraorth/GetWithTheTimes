@@ -36,6 +36,11 @@ def queryArticles(section):
 def queryComments(urlPath):
 	return commentsAPI.query(urlPath)
 
+@app.route('/queryQuote/<path:urlPath>')
+def queryQuote(urlPath):
+	print 'I am in queryQuote lol'
+	return commentsAPI.queryQuote(urlPath)
+
 #routes to compare page
 @app.route('/compare/<path:urlPath>')
 def compare(urlPath):
