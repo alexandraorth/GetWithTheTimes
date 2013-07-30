@@ -57,7 +57,6 @@
        return "translate(" + projection(d) + ")"      
      });
     });
-
    }
  });
 
@@ -116,13 +115,15 @@
   } 
 });
 
-$.ajax({
+  $.ajax({
     type: "get",
     url: "/queryQuote/<" + url + '>', 
     success: function(data) {
-     console.log("pls work " + data);
+     console.log("pls work ");
+     console.log(data);
    }
-});
+ });
+
 </script>
 </body>
 </html> 

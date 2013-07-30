@@ -18,8 +18,8 @@
 }
 .shadow_box{
 	background-color: rgba(51, 51, 51, 0.8);
-	height: 40px;
-	width:260;
+	height: 15%;
+	width: 100%;
 	border-right: 10px;
 	border-left: 10px;
 	border-bottom: hidden;
